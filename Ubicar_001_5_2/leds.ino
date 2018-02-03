@@ -1,5 +1,54 @@
 
+void leds_show() {
+digitalLeds_updatePixels(strands[0]);
+digitalLeds_updatePixels(strands[1]);
+digitalLeds_updatePixels(strands[2]);
+digitalLeds_updatePixels(strands[3]);
+ledcWrite(ledChannela, led_a);
+ledcWrite(ledChannelb, led_b);
+ledcWrite(ledChannelc, led_c);
+}//leds_show
 
+void initTest() {
+  #ifdef DEBUG
+  Serial.println("initTest()");
+  #endif
+  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
+    
+    strands[0]->pixels[i] = pixelFromRGB(127, 0, 0);
+    strands[1]->pixels[i] = pixelFromRGB(127, 0, 0);
+    strands[2]->pixels[i] = pixelFromRGB(127, 0, 0); 
+    strands[3]->pixels[i] = pixelFromRGB(127, 0, 0);
+}//for i
+  leds_show();
+  delay(500);
+  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
+     
+     strands[0]->pixels[i] = pixelFromRGB(0, 127, 0);
+     strands[1]->pixels[i] = pixelFromRGB(0, 127, 0); 
+     strands[2]->pixels[i] = pixelFromRGB(0, 127, 0); 
+     strands[3]->pixels[i] = pixelFromRGB(0, 127, 0);  
+}//for i
+  leds_show();
+  delay(500);
+  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
+      
+     strands[0]->pixels[i] = pixelFromRGB(0, 0, 127);
+     strands[1]->pixels[i] = pixelFromRGB(0, 0, 127); 
+     strands[2]->pixels[i] = pixelFromRGB(0, 0, 127);
+     strands[3]->pixels[i] = pixelFromRGB(0, 0, 127); 
+}//for i
+  leds_show();
+  delay(500);
+  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
+      
+    strands[0]->pixels[i] = pixelFromRGB(0, 0, 0);
+    strands[1]->pixels[i] = pixelFromRGB(0, 0, 0); 
+    strands[2]->pixels[i] = pixelFromRGB(0, 0, 0); 
+    strands[3]->pixels[i] = pixelFromRGB(0, 0, 0); 
+}//for i
+  leds_show();
+}//initest
 
 void gpioSetup(int gpioNum, int gpioMode, int gpioVal) {
   #if defined(ARDUINO) && ARDUINO >= 100
@@ -13,7 +62,6 @@ void gpioSetup(int gpioNum, int gpioMode, int gpioVal) {
     gpio_set_level(gpioNumNative, gpioVal);
   #endif
 }// gpioSetup
-
 
 
 void leds_init() {
