@@ -22,7 +22,7 @@
 
 */
 /**************************************************************************/
-// #define DEBUG 1
+#define DEBUG 1
 
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
@@ -135,17 +135,28 @@ UID found(0, 0, 0, 0, 0, 0);
 
 // used to toggle indicator LED on and off
 uint8_t led_state = 0;
+uint8_t led_state_r = 0;
 
 /*
    utility function to toggle indicator LED on/off
 */
 void blinkLED() {
-  if ( led_state ) {
+  if ( led_state==1 ) {
     digitalWrite(STATUS_LED, HIGH);
     led_state = 0;
   } else {
     digitalWrite(STATUS_LED, LOW);
     led_state = 1;
+  }
+}
+
+void blinkLEDR() {
+  if ( led_state_r==1 ) {
+    digitalWrite(TOUCH_LED, HIGH);
+    led_state_r = 0;
+  } else {
+    digitalWrite(TOUCH_LED, LOW);
+    led_state_r = 1;
   }
 }
 
@@ -608,9 +619,11 @@ void shutdown_screen () {
     display.drawString(0, 16, "MENU+UP=>ON");
     display.drawString(0, 32, "MENU+DOWN=>OFF");
     display.display();
-    delay(1500);
+    if (now - last_screen_check_time > SCREEN_TIMEOUT+1500) {
     display.displayOff();
     screen=0;
+    last_screen_check_time=now;
+    }
 }//shutdown_screen
 
 
@@ -1123,11 +1136,11 @@ void checkConfigReceived(LXDMXWiFi* interface, WiFiUDP* cUDP) {
     interface->packetBuffer()[0] = 0; //insure loop without recv doesn't re-trigger
     interface->packetBuffer()[1] = 0;
     blinkLED();
-    delay(100);
+    delay(50);
     blinkLED();
-    delay(100);
-    blinkLED();
+    delay(50);
   }		// packet has config packet header
+
 }//checkConfigReceived
 
 /************************************************************************
@@ -1158,8 +1171,7 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
     if (mode_start==3) {
     mode_start_value=200;
     }//mode start 3
-  interface->setSlot(512, mode_start_value);
-  
+    interface->setSlot(512, mode_start_value);
     xSemaphoreGive( ESP32DMX.lxDataLock );
     
     if ( multicast ) {
@@ -1167,9 +1179,9 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
     } else {
       interface->sendDMX(iUDP, DMXWiFiConfig.inputAddress(), INADDR_NONE);
     }
-    got_dmx = 0;
+    Serial.println ("Mode ");
     blinkLED();
-  }       // got_dmx
+  } 
 }//checkInput
 
 /************************************************************************
@@ -1191,8 +1203,8 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
 *************************************************************************/
 
 void loop() {
+  now = millis();
   if (screen==1) {
-    now = millis();
     if(now - last_screen_check_time > SCREEN_TIMEOUT) {
       #ifdef DEBUG
       Serial.print("shutdown screen... ");
@@ -1217,8 +1229,15 @@ void loop() {
 
     if ( (art_packet_result == RESULT_DMX_RECEIVED) || (acn_packet_result == RESULT_DMX_RECEIVED) ) {
       copyDMXToOutput();
+      Serial.println ("art_packet ");
+      led_state_r = 0;
+      blinkLEDR();
       blinkLED();
     } else {
+      Serial.println ("art_packet else ");
+      led_state = 0;
+      blinkLED();
+      blinkLEDR();
       // output was not updated last 5 times through loop so use a cycle to perform the next step of RDM discovery
       if ( rdm_enabled ) {
         idle_count++;
@@ -1252,8 +1271,10 @@ void loop() {
     #ifdef DEBUG
     Serial.println("Button9 Released MENU");
     #endif
+    last_screen_check_time=now;
     gotTouch9();
    }// 9 8 release 9 7 release
+   
   if(button9.isPressed() && button8.isPressed()) {
    display.displayOn(); 
    enter=0;
@@ -1262,13 +1283,17 @@ void loop() {
    last_screen_check_time = now;
    gotTouch9();
   }// display on
+  
   if(button9.isPressed() && button7.isPressed()) {
    display.displayOff();
    enter=0;
    screen=0;
+   last_screen_check_time=now;
   }// display off
+  
   if(button8.onPressed()) {
-   digitalWrite(TOUCH_LED, HIGH); 
+   digitalWrite(TOUCH_LED, HIGH);
+   last_screen_check_time=now; 
   }
   if(button8.onReleased()) {
     if (init_btn8==0) {
@@ -1281,7 +1306,9 @@ void loop() {
     #endif
     gotTouch8();
   }//button.8
+  
   if(button7.onPressed()) {
+    last_screen_check_time=now;
    digitalWrite(TOUCH_LED, HIGH); 
   }
   if(button7.onReleased()) {
@@ -1296,6 +1323,7 @@ void loop() {
     gotTouch7();
   }//button.7
   if(button6.onPressed()) {
+    last_screen_check_time=now;
    digitalWrite(WRITE_LED, HIGH); 
   }
   if(button6.onReleased()) {
