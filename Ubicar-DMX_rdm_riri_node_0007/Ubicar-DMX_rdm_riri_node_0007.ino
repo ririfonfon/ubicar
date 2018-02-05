@@ -9,7 +9,10 @@
 
 */
 /**************************************************************************/
-#define DEBUG 1
+//#define DEBUG 1
+
+//#define HELTEC 1
+#define OLED 1
 
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
@@ -23,16 +26,30 @@
  #include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
  #include "OLEDDisplayUi.h"// Include the UI lib
  #include "images.h"// Include custom images
+#ifdef OLED
  SSD1306  display(0x3c, 21, 22);
+#endif
+#ifdef HELTEC 
+ SSD1306  display(0x3c, 4, 15);// heltec screen
+#endif
  OLEDDisplayUi ui     ( &display );
 
 #include <RBD_Timer.h>  // https://github.com/alextaujenis/RBD_Timer
 #include <RBD_Button.h> // https://github.com/alextaujenis/RBD_Button
 // input pullup enabled by default
-RBD::Button button9(T9);
-RBD::Button button8(T8);
-RBD::Button button7(T7);
-RBD::Button button6(T6);
+#ifdef HELTEC
+RBD::Button button9(T7);//menu
+RBD::Button button8(T6);//up
+RBD::Button button7(T5);//down
+RBD::Button button6(T4);//enter
+#endif
+#ifdef OLED
+RBD::Button button9(T9);//menu
+RBD::Button button8(T8);//up
+RBD::Button button7(T7);//down
+RBD::Button button6(T6);//enter
+#endif
+
 uint8_t init_btn9=0;
 uint8_t init_btn8=0;
 uint8_t init_btn7=0;
@@ -66,16 +83,21 @@ int mode_start_value=0;
 
 #define DIRECTION_PIN 5         // pin for output direction enable on MAX481 chip
 
-#define STATUS_LED 19
-#define TOUCH_LED 4
-#define WRITE_LED 0
+#define STATUS_LED 19 // blue
+#define WRITE_LED 0 // green
+#ifdef OLED
+#define TOUCH_LED 4  // red
+#endif
+#ifdef HELTEC
+#define TOUCH_LED 23  // red
+#endif
 
 char ssid[32];
 char password[32];
 
 // RDM defines
-#define DISC_STATE_SEARCH 0
-#define DISC_STATE_TBL_CK 1
+//#define DISC_STATE_SEARCH 0
+//#define DISC_STATE_TBL_CK 1
 /*
    If RDM_DISCOVER_ALWAYS == 0, the times RDM discovery runs is limited to 10 cycles
    of table check and search.  When rdm_discovery_enable reaches zero, continous RDM
@@ -378,7 +400,14 @@ void setup() {
   Serial.begin(115200);
   Serial.setDebugOutput(1); //use uart0 for debugging
   #endif
- 
+  // heltec screen
+  #ifdef HELTEC 
+  pinMode(16,OUTPUT);
+  digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
+  delay(50); 
+  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high 
+  #endif
+  // heltec screen
   ui.init();// Initialising the UI will init the display too.
   display.flipScreenVertically();
   display.displayOn(); 
@@ -670,7 +699,7 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
     } else {
       interface->sendDMX(iUDP, DMXWiFiConfig.inputAddress(), INADDR_NONE);
     }
-    Serial.println ("Mode ");
+    got_dmx = 0;
     blinkLED();
   } 
 }//checkInput

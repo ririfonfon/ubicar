@@ -4,7 +4,7 @@
 ///////////////////////////////Debug
 #define DEBUG 1
 //#define DEBUG_dmx 1
-#define DEBUG_STR 1
+//#define DEBUG_STR 1
 
 ///////////////////////////////Lib esp32_digital_led_lib//////////////////////////////
 #include "esp32_digital_led_lib.h"

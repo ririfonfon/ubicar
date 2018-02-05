@@ -1,10 +1,9 @@
-#define min(m,n) ((m)<(n)?(m):(n))
 
 /////////////////////////////////////////Adresse/////////////////////////////////////
 #define adr 1
 
 /////////////////////////////////////////Debug///////////////////////////////////////
-//#define DEBUG 1
+#define DEBUG 1
 //#define DEBUG_dmx 1
 //#define DEBUG_STR 1
 
@@ -13,8 +12,8 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include <ArtnetWifi.h>
-#define WIFI_TIMEOUT 30000
-unsigned long last_wifi_check_time = 0;
+//#define WIFI_TIMEOUT 30000
+//unsigned long last_wifi_check_time = 0;
 
 #if defined(ARDUINO) && ARDUINO >= 100
   // No extras
@@ -27,15 +26,11 @@ unsigned long last_wifi_check_time = 0;
 ///////////////////////////////Lib esp32_digital_led_lib//////////////////////////////
 #include "esp32_digital_led_lib.h"
 #define min(m,n) ((m)<(n)?(m):(n))
-
 #define NUM_STRIPS 4
 #define NUM_LEDS_PER_STRIP 87
-
 int PINS[NUM_STRIPS] = {23, 22, 18, 5};
-
 const int numberOfChannels = NUM_STRIPS * NUM_LEDS_PER_STRIP * 3;
 const int numberOfLed = NUM_STRIPS * NUM_LEDS_PER_STRIP ;
-
 strand_t STRANDS[NUM_STRIPS];
 strand_t * strands [] = { &STRANDS[0], &STRANDS[1], &STRANDS[2], &STRANDS[3]};
 
@@ -151,4 +146,8 @@ void loop() {
   eff_modulo();
   effet();   
   effet_led_mode();
+  if (! WiFi.isConnected()) {
+    ledBlack();
+   ConnectWifi(); 
+  }
 }//loop

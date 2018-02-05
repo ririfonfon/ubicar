@@ -59,9 +59,6 @@ void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* d
     srr=data[adr+13];
     sgg=data[adr+14];
     sbb=data[adr+15];
-//    sr = srr * smaster / 255;
-//    sg = sgg * smaster / 255;
-//    sb = sbb * smaster / 255;
 
 // Ancienne position de led_mode ...
 

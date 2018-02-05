@@ -1179,7 +1179,7 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
     } else {
       interface->sendDMX(iUDP, DMXWiFiConfig.inputAddress(), INADDR_NONE);
     }
-    Serial.println ("Mode ");
+    got_dmx = 0;
     blinkLED();
   } 
 }//checkInput
@@ -1229,15 +1229,8 @@ void loop() {
 
     if ( (art_packet_result == RESULT_DMX_RECEIVED) || (acn_packet_result == RESULT_DMX_RECEIVED) ) {
       copyDMXToOutput();
-      Serial.println ("art_packet ");
-      led_state_r = 0;
-      blinkLEDR();
       blinkLED();
     } else {
-      Serial.println ("art_packet else ");
-      led_state = 0;
-      blinkLED();
-      blinkLEDR();
       // output was not updated last 5 times through loop so use a cycle to perform the next step of RDM discovery
       if ( rdm_enabled ) {
         idle_count++;
