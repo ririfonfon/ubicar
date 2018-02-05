@@ -132,12 +132,12 @@ void setup() {
   #ifdef DEBUG
   Serial.begin(115200);
   #endif   
-  ConnectWifi();
   pwm_init();
-  artnet.begin();
   leds_init();
-  initTest();
+  ConnectWifi();
+  artnet.begin();
   artnet.setArtDmxCallback(onDmxFrame);
+  initTest();
 }//setup
 
 ///////////////////////////////////////// LOOP /////////////////////////////////////////////////
@@ -147,7 +147,7 @@ void loop() {
   effet();   
   effet_led_mode();
   if (! WiFi.isConnected()) {
-    ledBlack();
+   ledBlack();//passe led noir
    ConnectWifi(); 
   }
 }//loop
