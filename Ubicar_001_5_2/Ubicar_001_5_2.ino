@@ -1,5 +1,6 @@
 
 /////////////////////////////////////////Adresse/////////////////////////////////////
+// adresse grande = 1 moyene = 18 petite = 35
 #define adr 1
 
 /////////////////////////////////////////Debug///////////////////////////////////////
@@ -27,7 +28,8 @@
 #include "esp32_digital_led_lib.h"
 #define min(m,n) ((m)<(n)?(m):(n))
 #define NUM_STRIPS 4
-#define NUM_LEDS_PER_STRIP 87
+// strip grande = 90 moyen = 78 petite = 66
+#define NUM_LEDS_PER_STRIP 90
 int PINS[NUM_STRIPS] = {23, 22, 18, 5};
 const int numberOfChannels = NUM_STRIPS * NUM_LEDS_PER_STRIP * 3;
 const int numberOfLed = NUM_STRIPS * NUM_LEDS_PER_STRIP ;
