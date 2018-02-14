@@ -67,8 +67,8 @@ for (int i = 0; i < n_led_to_show ; i ++){
  do {
     a = random( 0 , numberOfLed );
     n_strip = a / NUM_LEDS_PER_STRIP;
-    }while (strands[n_strip]->pixels[a-(87*n_strip)].r != 0 || strands[n_strip]->pixels[a-(87*n_strip)].g != 0 || strands[n_strip]->pixels[a-(87*n_strip)].b != 0 );
-    strands[n_strip]->pixels[a-(87*n_strip)] = pixelFromRGB(r, g, b); 
+    }while (strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)].r != 0 || strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)].g != 0 || strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)].b != 0 );
+    strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)] = pixelFromRGB(r, g, b); 
    }//for i
   }//modulo 3
   
@@ -130,8 +130,8 @@ for (int i = 0; i < n_led_to_show ; i ++){
  do {
     a = random( 0 , numberOfLed );
     n_strip = a / NUM_LEDS_PER_STRIP;
-    }while (strands[n_strip]->pixels[a-(87*n_strip)].r != 0 || strands[n_strip]->pixels[a-(87*n_strip)].g != 0 || strands[n_strip]->pixels[a-(87*n_strip)].b != 0 );
-    strands[n_strip]->pixels[a-(87*n_strip)] = pixelFromRGB(r, g, b); 
+    }while (strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)].r != 0 || strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)].g != 0 || strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)].b != 0 );
+    strands[n_strip]->pixels[a-(NUM_LEDS_PER_STRIP*n_strip)] = pixelFromRGB(r, g, b); 
    }//for i
     }//modulo 5
 }//eff_modulo
