@@ -1,7 +1,7 @@
 
 /////////////////////////////////////////Adresse/////////////////////////////////////
 // adresse grande = 1 moyene = 18 petite = 35
-#define adr 1
+#define adr 18
 
 /////////////////////////////////////////Debug///////////////////////////////////////
 #define DEBUG 1
@@ -29,7 +29,7 @@
 #define min(m,n) ((m)<(n)?(m):(n))
 #define NUM_STRIPS 4
 // strip grande = 90 moyen = 78 petite = 66
-#define NUM_LEDS_PER_STRIP 90
+#define NUM_LEDS_PER_STRIP 78
 int PINS[NUM_STRIPS] = {23, 22, 18, 5};
 const int numberOfChannels = NUM_STRIPS * NUM_LEDS_PER_STRIP * 3;
 const int numberOfLed = NUM_STRIPS * NUM_LEDS_PER_STRIP ;
