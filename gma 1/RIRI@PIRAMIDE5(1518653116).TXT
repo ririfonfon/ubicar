@@ -1,0 +1,91 @@
+_FIXTURETYPE
+{
+	_NAME       "Piramide5"
+	_MANUFAC    "riri"
+	_SHORTNAME  "PI_"
+	_VERSION    1518653116
+	_BRIGHTMINW 5000.000000
+	_BRIGHTMAXW 5000.000000
+	_CHANTYPE
+	{ _ATTRIBUT "DIM" _FEATURE "DIMMER" _PRESET "DIMMER" _ATT_LABEL "Dim" _FEA_LABEL "Dimmer" _HIGHLITE 100.0000% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF DIMMER _PHYS [    0.00,    1.00] }
+	}
+	{ _ATTRIBUT "COLORMIX1" _FEATURE "COLORMIX" _PRESET "COLOR" _ATT_LABEL "CM1" _FEA_LABEL "ColorMix" _HIGHLITE 0.0000% _ETIME -1.000000 _INVERT YES 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF COLOR_MIX _EFFSUB CYAN _PHYS [    0.00,    1.00] 			_CHANSET
+			{ _NAME "Full R"     _RANGE [0.0000%,0.3891%] }
+			{ _NAME "Med R"      _RANGE [49.6101%,49.9992%] }
+			{ _NAME "Zero R"     _RANGE [99.6109%,100.0000%] }
+		}
+	}
+	{ _ATTRIBUT "COLORMIX2" _FEATURE "COLORMIX" _PRESET "COLOR" _ATT_LABEL "CM2" _FEA_LABEL "ColorMix" _HIGHLITE 0.0000% _ETIME -1.000000 _INVERT YES 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF COLOR_MIX _EFFSUB MAGENTA _PHYS [    0.00,    1.00] 			_CHANSET
+			{ _NAME "Full G"     _RANGE [0.0000%,0.3891%] }
+			{ _NAME "Med G"      _RANGE [49.6101%,49.9992%] }
+			{ _NAME "Zero G"     _RANGE [99.6109%,100.0000%] }
+		}
+	}
+	{ _ATTRIBUT "COLORMIX3" _FEATURE "COLORMIX" _PRESET "COLOR" _ATT_LABEL "CM3" _FEA_LABEL "ColorMix" _HIGHLITE 0.0000% _ETIME -1.000000 _INVERT YES 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF COLOR_MIX _EFFSUB YELLOW _PHYS [    0.00,    1.00] 			_CHANSET
+			{ _NAME "Full B"     _RANGE [0.0000%,0.3891%] }
+			{ _NAME "Med B"      _RANGE [49.6101%,49.9992%] }
+			{ _NAME "Zero B"     _RANGE [99.6109%,100.0000%] }
+		}
+	}
+	{ _ATTRIBUT "Mode" _FEATURE "GOBO1" _PRESET "GOBO" _ATT_LABEL "Mode" _FEA_LABEL "Gobo1" _HIGHLITE 0.0000% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "mode"       _RANGE [  0,255] _EFF NONE _PHYS [    0.00,    0.00] 			_CHANSET
+			{ _NAME "Full"       _RANGE [0.0000%,4.2954%] }
+			{ _NAME "Ru 1"       _RANGE [4.2969%,8.2017%] }
+			{ _NAME "Ru 2"       _RANGE [8.2033%,12.1080%] }
+			{ _NAME "Ru 3"       _RANGE [12.1096%,16.0143%] }
+			{ _NAME "Ru 4"       _RANGE [16.0159%,19.9207%] }
+			{ _NAME "Ru 12"      _RANGE [19.9222%,23.8270%] }
+			{ _NAME "Ru 13"      _RANGE [23.8285%,27.7333%] }
+			{ _NAME "Ru 14"      _RANGE [27.7348%,31.6396%] }
+			{ _NAME "Ru 23"      _RANGE [31.6411%,35.5459%] }
+			{ _NAME "Ru 24"      _RANGE [35.5474%,39.4522%] }
+			{ _NAME "Ru 34"      _RANGE [39.4537%,43.3585%] }
+			{ _NAME "1/4"        _RANGE [43.3600%,47.2648%] }
+			{ _NAME "2/4"        _RANGE [47.2663%,51.1711%] }
+			{ _NAME "3/4"        _RANGE [51.1727%,55.0774%] }
+			{ _NAME "4/4"        _RANGE [55.0790%,58.9838%] }
+		}
+	}
+	{ _ATTRIBUT "Pix" _FEATURE "GOBO1" _PRESET "GOBO" _ATT_LABEL "Pix" _FEA_LABEL "Gobo1" _HIGHLITE 0.0000% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "pix"        _RANGE [  0,255] _EFF NONE _PHYS [    0.00,    0.00] 			_CHANSET
+			{ _NAME "Open"       _RANGE [0.0000%,4.2954%] }
+			{ _NAME "Ruban"      _RANGE [4.2969%,8.2017%] }
+			{ _NAME "Full"       _RANGE [8.2033%,12.1080%] }
+			{ _NAME "R Smooth >" _RANGE [12.1096%,16.0143%] }
+			{ _NAME "R Smooth <" _RANGE [16.0159%,19.9207%] }
+			{ _NAME "R Smooth <>" _RANGE [19.9222%,23.8270%] }
+			{ _NAME "F Smooth >" _RANGE [23.8285%,27.7333%] }
+			{ _NAME "F Smooth <" _RANGE [27.7348%,31.6396%] }
+			{ _NAME "F Smooth <>" _RANGE [31.6411%,35.5459%] }
+		}
+	}
+	{ _ATTRIBUT "Pix_Long" _FEATURE "GOBO1" _PRESET "GOBO" _ATT_LABEL "Pix_Long" _FEA_LABEL "Gobo1" _DEFAULT 0.3922% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Pix_Long"   _RANGE [  0,255] _EFF NONE _PHYS [  -10.00,   10.00] }
+	}
+	{ _ATTRIBUT "Pix_Pos" _FEATURE "GOBO1" _PRESET "GOBO" _ATT_LABEL "Pix_Pos" _FEA_LABEL "Gobo1" _DEFAULT 49.8039% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Pix_Pos"    _RANGE [  0,255] _EFF NONE _PHYS [    0.00,    0.00] 			_CHANSET
+			{ _NAME "Down"       _RANGE [0.0000%,0.3891%] }
+			{ _NAME "Center"     _RANGE [49.6101%,49.9992%] }
+			{ _NAME "Up"         _RANGE [99.6109%,100.0000%] }
+		}
+	}
+	{ _ATTRIBUT "STROBE" _FEATURE "BEAM1" _PRESET "BEAM" _ATT_LABEL "Strb" _FEA_LABEL "Beam1" _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Open"       _RANGE [  0, 30] _EFF NONE _PHYS [    0.00,    0.00] 			_CHANSET
+			{ _NAME "Open"       _RANGE [0.0000%,4.2954%] }
+			{ _NAME "Str"        _RANGE [4.2969%,8.2017%] }
+			{ _NAME "Smooth"     _RANGE [8.2033%,12.1080%] }
+		}
+		{ _NAME "Str"        _RANGE [ 31,110] _EFF VIDEO_SHOW_LAYER_ON_HEAD _PHYS [    1.00,  100.00] }
+		{ _NAME "Blink"      _RANGE [111,120] _EFF NONE _PHYS [    0.00,    0.00] 			_CHANSET
+			{ _NAME "Blink"      _RANGE [43.3600%,47.2648%] }
+		}
+		{ _NAME "Blink Rnd"  _RANGE [121,200] _EFF VIDEO_SHOW_LAYER_ON_HEAD _PHYS [    1.00,  100.00] }
+	}
+	{ _ATTRIBUT "Str_Speed" _FEATURE "BEAM1" _PRESET "BEAM" _ATT_LABEL "Str_Speed" _FEA_LABEL "Beam1" _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Str Speed"  _RANGE [  0,255] _EFF STROBE _EFFSUB STROBE_STROBE _PHYS [   15.00,    0.10] }
+	}
+}

@@ -1,0 +1,32 @@
+_FIXTURETYPE
+{
+	_NAME       "Pir_led"
+	_MANUFAC    "riri"
+	_SHORTNAME  "PI_L_"
+	_VERSION    1518653124
+	_CHANTYPE
+	{ _ATTRIBUT "DIM" _FEATURE "DIMMER" _PRESET "DIMMER" _ATT_LABEL "Dim" _FEA_LABEL "Dimmer" _HIGHLITE 100.0000% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF DIMMER _PHYS [    0.00,    1.00] }
+	}
+	{ _ATTRIBUT "STROBE" _FEATURE "BEAM1" _PRESET "BEAM" _ATT_LABEL "Strb" _FEA_LABEL "Beam1" _HIGHLITE 0.0000% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF NONE _PHYS [    0.00,    0.00] 			_CHANSET
+			{ _NAME "All"        _RANGE [0.0000%,4.2954%] }
+			{ _NAME "1"          _RANGE [4.2969%,8.2017%] }
+			{ _NAME "2"          _RANGE [8.2033%,12.1080%] }
+			{ _NAME "3"          _RANGE [12.1096%,16.0143%] }
+			{ _NAME "All Str"    _RANGE [16.0159%,19.9207%] }
+			{ _NAME "1 Str"      _RANGE [19.9222%,23.8270%] }
+			{ _NAME "2 Str"      _RANGE [23.8285%,27.7333%] }
+			{ _NAME "3 Str"      _RANGE [27.7348%,31.6396%] }
+			{ _NAME "123 Str"    _RANGE [31.6411%,35.5459%] }
+			{ _NAME "All Blink"  _RANGE [35.5474%,39.4522%] }
+			{ _NAME "1 Blink"    _RANGE [39.4537%,43.3585%] }
+			{ _NAME "2 Blink"    _RANGE [43.3600%,47.2648%] }
+			{ _NAME "3 Blink"    _RANGE [47.2663%,51.1711%] }
+			{ _NAME "123 Blink"  _RANGE [51.1727%,55.0774%] }
+		}
+	}
+	{ _ATTRIBUT "Str_Speed" _FEATURE "BEAM1" _PRESET "BEAM" _ATT_LABEL "Str_Speed" _FEA_LABEL "Beam1" _HIGHLITE 0.0000% _ETIME -1.000000 		_CHANFUNC
+		{ _NAME "Function"   _RANGE [  0,255] _EFF NONE _PHYS [    0.00,    0.00] }
+	}
+}
