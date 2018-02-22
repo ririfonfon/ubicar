@@ -1,7 +1,10 @@
 /************************************************************************
  ****************               display                ******************
  ************************************************************************/
- 
+ char buf[2];
+ char bufi[2];
+ char bufa[2];
+
 void info () {
     display.clear();
     display.setFont(ArialMT_Plain_10);
@@ -32,8 +35,10 @@ void info () {
     if (mode_start==3) {
     display.drawString(65, 40, "MINI");
     }//mode start 3
-    display.drawString(0, 50,"N° Tasks ");
-    display.drawString(65, 50,String(uxTaskGetNumberOfTasks()));
+    display.drawString(0, 50,"Bat : ");
+    sprintf (buf, "%d", level);
+    display.drawString(65, 50, buf);
+    display.drawString(85, 50, "%");
     display.display();
     
 }//info

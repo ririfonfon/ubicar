@@ -13,6 +13,10 @@
 #define HELTEC 1
 //#define OLED 1
 
+#include <driver/adc.h>
+int rawb;
+int level = map(rawb, 3000, 3900, 0, 100);
+
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
     int dmx_start;
@@ -58,6 +62,8 @@ int frameCount = 5;
 int frameCountnow = 0;
 int enter = 0;
 
+#define bat_check 1000
+unsigned long last_bat_check_time = 0 ;
 #define SCREEN_TIMEOUT 30000
 unsigned long last_screen_check_time = 0;
 uint8_t screen =1;
@@ -312,7 +318,7 @@ void setup() {
   Serial.print("number of tasks is ");
   Serial.println(uxTaskGetNumberOfTasks());
   #endif
-
+  getLevel();
   info();
 
 } //setup
@@ -345,6 +351,13 @@ void loop() {
       Serial.print("shutdown screen... ");
       #endif
       shutdown_screen();
+    }
+    if(now - last_bat_check_time > bat_check) {
+      #ifdef DEBUG
+      Serial.print("getLevel();");
+      #endif
+      getLevel();
+      last_bat_check_time=now;
     }
   }//if (screen==1)
  
