@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.50 (Windows - x86)">
+  <section name="config">
+    <options closefiles="1" openmode="1" name="Ubicar_xtouch_V11_MULTIFLASH"/>
+  </section>
+  <section name="data">
+    <explorer view="" pattern="0"/>
+    <log show="1"/>
+    <lastopen date="2018-02-22 21:41" user="ririf" host="BOMBASSEPORTABL"/>
+  </section>
+  <section name="files">
+    <file name="MIDI_Faders.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="ba73cd6e6e19ac31b472f15c0317c3e3"/>
+    </file>
+    <file name="MIDI_LAUNCH.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="ddc24ba9f67a62e894ede872a47b433f"/>
+    </file>
+    <file name="MIDI_LED.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="7be80b4d761af661621df3814915263d"/>
+    </file>
+    <file name="MIDI_MyVariables.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="cdf67f8a4cbc11b0fcfcdb4d379087fd"/>
+    </file>
+    <file name="MIDI_PulsarDespulsar.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="81a8528222917171522a5cf1ea028358"/>
+    </file>
+    <file name="MIDI_Search_Register.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="7afd57ed7e7c09473e970fe5df26c24b"/>
+    </file>
+    <file name="MidiMAIN.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="8cb2f34e088bd827238d4d48e816f13f"/>
+    </file>
+    <file name="MidiRequester.pb">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="e804a91090b51200c7f8f34c689bbe94"/>
+    </file>
+  </section>
+  <section name="targets">
+    <target name="Default Target" enabled="1" default="1">
+      <inputfile value="MidiMAIN.pb"/>
+      <outputfile value=""/>
+      <compiler version="PureBasic 5.50 (Windows - x86)"/>
+      <executable value="Ubicar_xtouch_V11_MULTIFLASH_11.exe"/>
+      <options thread="1" xpskin="1" admin="1" onerror="1" debug="1"/>
+      <purifier enable="1"/>
+      <temporaryexe value="source"/>
+      <icon enable="1">gmanet.ico</icon>
+      <debugger custom="1" type="ide"/>
+      <warnings custom="1" type="ignore"/>
+      <versioninfo enable="1">
+        <field0 value="11"/>
+        <field1 value="11"/>
+        <field2 value="RIRI"/>
+        <field3 value="xtouch_MULTIMIDI"/>
+        <field4 value="V11"/>
+        <field5 value="11"/>
+        <field9 value="RIRI"/>
+        <field10 value="RIRI"/>
+        <field11 value="RIRI"/>
+      </versioninfo>
+    </target>
+  </section>
+</project>
