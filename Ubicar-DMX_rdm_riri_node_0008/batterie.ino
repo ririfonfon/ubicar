@@ -40,7 +40,7 @@ float getLevel(){
         somme += raw ; //somme des valeurs du tableau
     }
     raw_m = somme  / NB_SAMPLE ; //valeur moyenne   
-  level = map(raw_m, 204, 295, 0, 100);            
+  level = map(raw_m, 204, 290, 0, 100);            
   if ( level < 0 ) { level = 0; }
   if ( level > 100 ) { level = 100; }
   return level;

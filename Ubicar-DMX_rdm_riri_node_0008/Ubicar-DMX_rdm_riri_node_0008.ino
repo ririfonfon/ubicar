@@ -13,8 +13,10 @@
 #define HELTEC 1
 //#define OLED 1
 
+#ifdef HELTEC 
 #define NB_SAMPLE    1000
 int level;
+#endif
 
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
@@ -150,6 +152,7 @@ void setup() {
   Serial.setDebugOutput(1); //use uart0 for debugging
   #endif
 
+#ifdef HELTEC 
 /*
   analogReadResolution(12);             // Sets the sample bits and read resolution, default is 12-bit (0 - 4095), range is 9 - 12 bits
   analogSetWidth(12);                   // Sets the sample bits and read resolution, default is 12-bit (0 - 4095), range is 9 - 12 bits
@@ -175,6 +178,7 @@ void setup() {
   analogSetWidth(9);
   analogSetCycles(255);
   analogSetClockDiv(255); // 1338mS
+  #endif
   
   // heltec screen
   #ifdef HELTEC 
@@ -344,7 +348,10 @@ void setup() {
   Serial.print("number of tasks is ");
   Serial.println(uxTaskGetNumberOfTasks());
   #endif
+
+  #ifdef HELTEC 
   getLevel();
+  #endif
   info();
 
 } //setup
@@ -378,13 +385,18 @@ void loop() {
       #endif
       shutdown_screen();
     }
+    #ifdef HELTEC 
     if(now - last_bat_check_time > bat_check) {
       #ifdef DEBUG
       Serial.println("getLevel();");
       #endif
       getLevel();
+      if (frameCountnow==5) {
+      info(); 
+      }//info
       last_bat_check_time=now;
     }
+    #endif
   }//if (screen==1)
  
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {
