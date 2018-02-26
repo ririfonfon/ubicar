@@ -9,13 +9,15 @@ float getVoltage(){
         somme += raw ; //somme des valeurs du tableau
     }
 
-    raw_m = somme  / NB_SAMPLE ; //valeur moyenne
+  raw_m = somme  / NB_SAMPLE ; //valeur moyenne
   int volt = map(raw_m, 204, 295, 300, 420);     
-  //volt = volt / 100;
-  
+
+  #ifdef DEBUG
   Serial.print("A0_m "); Serial.println(raw_m);
   Serial.print("Voltage "); Serial.println(volt);
-  display.clear();
+  #endif
+  
+    display.clear();
     display.setFont(ArialMT_Plain_16);
     display.setTextAlignment(TEXT_ALIGN_LEFT);
     display.drawString(0, 0, "A0 ");
@@ -25,7 +27,6 @@ float getVoltage(){
     sprintf (bufa, "%d", volt);
     display.drawString(60, 24, bufa);
     display.display();
-//    delay (1000);
   return volt;
 }
 
@@ -37,9 +38,9 @@ float getLevel(){
     for (int i = 0 ; i < NB_SAMPLE ; i++)
     {  
       raw = analogRead(34);
-        somme += raw ; //somme des valeurs du tableau
+      somme += raw ; //somme des valeurs du tableau
     }
-    raw_m = somme  / NB_SAMPLE ; //valeur moyenne   
+  raw_m = somme  / NB_SAMPLE ; //valeur moyenne   
   level = map(raw_m, 204, 290, 0, 100);            
   if ( level < 0 ) { level = 0; }
   if ( level > 100 ) { level = 100; }
