@@ -257,7 +257,7 @@ void shutdown_screen () {
     display.drawString(0, 16, "MENU+UP=>ON");
     display.drawString(0, 32, "MENU+DOWN=>OFF");
     display.display();
-    if (now - last_screen_check_time > SCREEN_TIMEOUT+1500) {
+    if (now - last_screen_check_time > SCREEN_TIMEOUT+3000) {
     display.displayOff();
     screen=0;
     last_screen_check_time=now;
