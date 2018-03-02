@@ -28,13 +28,7 @@ void initTest() {
   #ifdef DEBUG
   Serial.println("initTest()");
   #endif
-  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-    
-    strands[0]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
-    strands[1]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
-    strands[2]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0); 
-    strands[3]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
-}//for i
+  Black();
   leds_show();
   delay(500);
   for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
@@ -55,13 +49,7 @@ void initTest() {
 }//for i
   leds_show();
   delay(500);
-  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-      
-    strands[0]->pixels[i] = pixelFromRGB(0, 0, 0);
-    strands[1]->pixels[i] = pixelFromRGB(0, 0, 0); 
-    strands[2]->pixels[i] = pixelFromRGB(0, 0, 0); 
-    strands[3]->pixels[i] = pixelFromRGB(0, 0, 0); 
-}//for i
+  Black();
   leds_show();
 }//initest
 

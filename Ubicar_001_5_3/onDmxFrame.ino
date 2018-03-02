@@ -147,37 +147,21 @@ if((modulo>=0)&&modulo<=10) {
 } else if ((modulo>=21)&&modulo<=30) {
   type_modulo=2;
 } else if ((modulo>=31)&&modulo<=110) {
-  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-     strands[0]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[1]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[2]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[3]->pixels[i] = pixelFromRGB(0, 0, 0);
-  }//for i
+  Black();
   type_modulo=3;
   S_seuil=(modulo-30)*4;
   type_effet = 255;
 } else if ((modulo>=111)&&modulo<=120) {
   type_modulo=4;
 } else if ((modulo>=121)&&modulo<=200) {
-  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-     strands[0]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[1]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[2]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[3]->pixels[i] = pixelFromRGB(0, 0, 0);
-  }//for i
+    Black();
   type_modulo=5;
   S_seuil=(modulo-120)*4;
   type_effet = 255;
 } else if ((modulo>=201)&&modulo<=255) {
-  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-     strands[0]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[1]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[2]->pixels[i] = pixelFromRGB(0, 0, 0);
-     strands[3]->pixels[i] = pixelFromRGB(0, 0, 0);
-  }//for i
   type_modulo=6;
   S_seuil=(modulo-200)*4;
-  //type_effet = 255;
+  type_effet = 255;
 } 
   
   previousDataLength = length;     

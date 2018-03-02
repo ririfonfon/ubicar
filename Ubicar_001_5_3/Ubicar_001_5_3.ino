@@ -1,7 +1,7 @@
 
 /////////////////////////////////////////Adresse/////////////////////////////////////
 // adresse grande = 1 moyene = 18 petite = 35
-#define adr 35
+#define adr 1
 
 /////////////////////////////////////////Debug///////////////////////////////////////
 #define DEBUG 1
@@ -29,12 +29,13 @@
 #define min(m,n) ((m)<(n)?(m):(n))
 #define NUM_STRIPS 4
 // strip grande = 90 moyen = 78 petite = 66
-#define NUM_LEDS_PER_STRIP 66
+#define NUM_LEDS_PER_STRIP 90
 int PINS[NUM_STRIPS] = {23, 22, 18, 5};
 const int numberOfChannels = NUM_STRIPS * NUM_LEDS_PER_STRIP * 3;
 const int numberOfLed = NUM_STRIPS * NUM_LEDS_PER_STRIP ;
 strand_t STRANDS[NUM_STRIPS];
 strand_t * strands [] = { &STRANDS[0], &STRANDS[1], &STRANDS[2], &STRANDS[3]};
+bool randArray[numberOfLed];
 
 ///////////////////////////////////dmx variables////////////////////////////////////
 unsigned long now;
@@ -96,6 +97,7 @@ int M_g3;
 int M_g3_ref;
 int M_g4;
 int S_seuil;
+int old_S_seuil=0;
 int S_count;
 int a;
 int led_a;
@@ -137,6 +139,8 @@ void setup() {
   pwm_init();
   leds_init();
   ConnectWifi();
+   // OTA
+  ota_setup();
   artnet.begin();
   artnet.setArtDmxCallback(onDmxFrame);
   initTest();
@@ -152,4 +156,6 @@ void loop() {
    ledBlack();//passe led noir
    ConnectWifi(); 
   }
+  // OTA
+  ota_loop();
 }//loop
