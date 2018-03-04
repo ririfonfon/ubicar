@@ -2,7 +2,7 @@
    utility function to toggle indicator LED on/off
 */
 void blinkLED() {
-  if ( led_state==1 ) {
+  if ( led_state == 1 ) {
     digitalWrite(STATUS_LED, HIGH);
     led_state = 0;
   } else {
@@ -12,7 +12,7 @@ void blinkLED() {
 }
 
 void blinkLEDR() {
-  if ( led_state_r==1 ) {
+  if ( led_state_r == 1 ) {
     digitalWrite(TOUCH_LED, HIGH);
     led_state_r = 0;
   } else {
@@ -111,36 +111,36 @@ void copyDMXToOutput(void) {
 
 void checkConfigReceived(LXDMXWiFi* interface, WiFiUDP* cUDP) {
   if ( strcmp(CONFIG_PACKET_IDENT, (const char *) interface->packetBuffer()) == 0 ) {  //match header to config packet
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("config packet received, ");
-    #endif
+#endif
     uint8_t reply = 0;
     if ( interface->packetBuffer()[8] == '?' ) {  //packet opcode is query
       DMXWiFiConfig.readFromPersistentStore();
       reply = 1;
     } else if (( interface->packetBuffer()[8] == '!' ) && (interface->packetSize() >= 171)) { //packet opcode is set
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println("upload packet");
-      #endif
+#endif
       DMXWiFiConfig.copyConfig( interface->packetBuffer(), interface->packetSize());
       DMXWiFiConfig.commitToPersistentStore();
       reply = 1;
     } else if ( interface->packetBuffer()[8] == '^' ) {
       ESP.restart();
     } else {
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println("unknown config opcode.");
-      #endif
+#endif
     }
     if ( reply) {
       DMXWiFiConfig.hidePassword();                         // don't transmit password!
       cUDP->beginPacket(cUDP->remoteIP(), interface->dmxPort());        // unicast reply
       cUDP->write((uint8_t*)DMXWiFiConfig.config(), DMXWiFiConfigSIZE);
       cUDP->endPacket();
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println(DMXWiFiConfig.SSID());
       Serial.println("reply complete.");
-      #endif
+#endif
       DMXWiFiConfig.restorePassword();
     }
     interface->packetBuffer()[0] = 0; //insure loop without recv doesn't re-trigger
@@ -162,28 +162,28 @@ void checkConfigReceived(LXDMXWiFi* interface, WiFiUDP* cUDP) {
 
 void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
   if ( got_dmx ) {
-   // interface->setNumberOfSlots(got_dmx);     // set slots & copy to interface
+    // interface->setNumberOfSlots(got_dmx);     // set slots & copy to interface
     interface->setNumberOfSlots(512);      // set slots 512 & copy to interface
 
     xSemaphoreTake( ESP32DMX.lxDataLock, portMAX_DELAY );
     for (int i = dmx_start; i <= got_dmx; i++) {
-      interface->setSlot((i-dmx_start+1), ESP32DMX.getSlot(i));
+      interface->setSlot((i - dmx_start + 1), ESP32DMX.getSlot(i));
     }
-  /////////////////////////////////////////////////////////////////
-  //////                   mode set                          //////
-  /////////////////////////////////////////////////////////////////
-  if (mode_start==1) {
-    mode_start_value=10;
+    /////////////////////////////////////////////////////////////////
+    //////                   mode set                          //////
+    /////////////////////////////////////////////////////////////////
+    if (mode_start == 1) {
+      mode_start_value = 10;
     }//mode start 1
-    if (mode_start==2) {
-    mode_start_value=100;
+    if (mode_start == 2) {
+      mode_start_value = 100;
     }//mode start 2
-    if (mode_start==3) {
-    mode_start_value=200;
+    if (mode_start == 3) {
+      mode_start_value = 200;
     }//mode start 3
     interface->setSlot(512, mode_start_value);
     xSemaphoreGive( ESP32DMX.lxDataLock );
-    
+
     if ( multicast ) {
       interface->sendDMX(iUDP, DMXWiFiConfig.inputAddress(), WiFi.localIP());
     } else {
@@ -191,5 +191,5 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
     }
     got_dmx = 0;
     blinkLED();
-  } 
+  }
 }//checkInput

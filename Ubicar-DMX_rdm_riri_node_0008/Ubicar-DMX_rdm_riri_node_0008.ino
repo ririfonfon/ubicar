@@ -13,30 +13,30 @@
 #define HELTEC 1
 //#define OLED 1
 
-#ifdef HELTEC 
+#ifdef HELTEC
 #define NB_SAMPLE    1000
 int level;
 #endif
 
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
-    int dmx_start;
-    int mode_start;
-    int wifichannel;
-    int hidden;
-    int hiddens;
+int dmx_start;
+int mode_start;
+int wifichannel;
+int hidden;
+int hiddens;
 
- #include <Wire.h>  // Only needed for Arduino 1.6.5 and earlier
- #include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
- #include "OLEDDisplayUi.h"// Include the UI lib
- #include "images.h"// Include custom images
+#include <Wire.h>  // Only needed for Arduino 1.6.5 and earlier
+#include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
+#include "OLEDDisplayUi.h"// Include the UI lib
+#include "images.h"// Include custom images
 #ifdef OLED
- SSD1306  display(0x3c, 21, 22);
+SSD1306  display(0x3c, 21, 22);
 #endif
-#ifdef HELTEC 
- SSD1306  display(0x3c, 4, 15);// heltec screen
+#ifdef HELTEC
+SSD1306  display(0x3c, 4, 15);// heltec screen
 #endif
- OLEDDisplayUi ui     ( &display );
+OLEDDisplayUi ui     ( &display );
 
 #include <RBD_Timer.h>  // https://github.com/alextaujenis/RBD_Timer
 #include <RBD_Button.h> // https://github.com/alextaujenis/RBD_Button
@@ -54,10 +54,10 @@ RBD::Button button7(T7);//down
 RBD::Button button6(T6);//enter
 #endif
 
-uint8_t init_btn9=0;
-uint8_t init_btn8=0;
-uint8_t init_btn7=0;
-uint8_t init_btn6=0;
+uint8_t init_btn9 = 0;
+uint8_t init_btn8 = 0;
+uint8_t init_btn7 = 0;
+uint8_t init_btn6 = 0;
 
 int frameCount = 5;
 int frameCountnow = 0;
@@ -67,10 +67,10 @@ int enter = 0;
 unsigned long last_bat_check_time = 0 ;
 #define SCREEN_TIMEOUT 90000
 unsigned long last_screen_check_time = 0;
-uint8_t screen =1;
+uint8_t screen = 1;
 unsigned long now;
 
-int mode_start_value=0;
+int mode_start_value = 0;
 
 #include <LXESP32DMX.h>
 #include <UID.h>
@@ -147,59 +147,59 @@ uint8_t led_state_r = 0;
 *************************************************************************/
 
 void setup() {
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.begin(115200);
   Serial.setDebugOutput(1); //use uart0 for debugging
-  #endif
+#endif
 
-#ifdef HELTEC 
-/*
-  analogReadResolution(12);             // Sets the sample bits and read resolution, default is 12-bit (0 - 4095), range is 9 - 12 bits
-  analogSetWidth(12);                   // Sets the sample bits and read resolution, default is 12-bit (0 - 4095), range is 9 - 12 bits
-                                        //  9-bit gives an ADC range of 0-511
-                                        // 10-bit gives an ADC range of 0-1023
-                                        // 11-bit gives an ADC range of 0-2047
-                                        // 12-bit gives an ADC range of 0-4095
-  analogSetCycles(8);                   // Set number of cycles per sample, default is 8 and provides an optimal result, range is 1 - 255
-  analogSetSamples(1);                  // Set number of samples in the range, default is 1, it has an effect on sensitivity has been multiplied
-  analogSetClockDiv(1);                 // Set the divider for the ADC clock, default is 1, range is 1 - 255
-  analogSetAttenuation(ADC_11db);       // Sets the input attenuation for ALL ADC inputs, default is ADC_11db, range is ADC_0db, ADC_2_5db, ADC_6db, ADC_11db
-  analogSetPinAttenuation(VP,ADC_11db); // Sets the input attenuation, default is ADC_11db, range is ADC_0db, ADC_2_5db, ADC_6db, ADC_11db
-                                        // ADC_0db provides no attenuation so IN/OUT = 1 / 1 an input of 3 volts remains at 3 volts before ADC measurement
-                                        // ADC_2_5db provides an attenuation so that IN/OUT = 1 / 1.34 an input of 3 volts is reduced to 2.238 volts before ADC measurement
-                                        // ADC_6db provides an attenuation so that IN/OUT = 1 / 2 an input of 3 volts is reduced to 1.500 volts before ADC measurement
-                                        // ADC_11db provides an attenuation so that IN/OUT = 1 / 3.6 an input of 3 volts is reduced to 0.833 volts before ADC measurement
-  adcAttachPin(VP);                     // Attach a pin to ADC (also clears any other analog mode that could be on), returns TRUE/FALSE result 
-  adcStart(VP);                         // Starts an ADC conversion on attached pin's bus
-  adcBusy(VP);                          // Check if conversion on the pin's ADC bus is currently running, returns TRUE/FALSE result 
-  adcEnd(VP);                           // Get the result of the conversion (will wait if it have not finished), returns 16-bit integer result
+#ifdef HELTEC
+  /*
+    analogReadResolution(12);             // Sets the sample bits and read resolution, default is 12-bit (0 - 4095), range is 9 - 12 bits
+    analogSetWidth(12);                   // Sets the sample bits and read resolution, default is 12-bit (0 - 4095), range is 9 - 12 bits
+                                          //  9-bit gives an ADC range of 0-511
+                                          // 10-bit gives an ADC range of 0-1023
+                                          // 11-bit gives an ADC range of 0-2047
+                                          // 12-bit gives an ADC range of 0-4095
+    analogSetCycles(8);                   // Set number of cycles per sample, default is 8 and provides an optimal result, range is 1 - 255
+    analogSetSamples(1);                  // Set number of samples in the range, default is 1, it has an effect on sensitivity has been multiplied
+    analogSetClockDiv(1);                 // Set the divider for the ADC clock, default is 1, range is 1 - 255
+    analogSetAttenuation(ADC_11db);       // Sets the input attenuation for ALL ADC inputs, default is ADC_11db, range is ADC_0db, ADC_2_5db, ADC_6db, ADC_11db
+    analogSetPinAttenuation(VP,ADC_11db); // Sets the input attenuation, default is ADC_11db, range is ADC_0db, ADC_2_5db, ADC_6db, ADC_11db
+                                          // ADC_0db provides no attenuation so IN/OUT = 1 / 1 an input of 3 volts remains at 3 volts before ADC measurement
+                                          // ADC_2_5db provides an attenuation so that IN/OUT = 1 / 1.34 an input of 3 volts is reduced to 2.238 volts before ADC measurement
+                                          // ADC_6db provides an attenuation so that IN/OUT = 1 / 2 an input of 3 volts is reduced to 1.500 volts before ADC measurement
+                                          // ADC_11db provides an attenuation so that IN/OUT = 1 / 3.6 an input of 3 volts is reduced to 0.833 volts before ADC measurement
+    adcAttachPin(VP);                     // Attach a pin to ADC (also clears any other analog mode that could be on), returns TRUE/FALSE result
+    adcStart(VP);                         // Starts an ADC conversion on attached pin's bus
+    adcBusy(VP);                          // Check if conversion on the pin's ADC bus is currently running, returns TRUE/FALSE result
+    adcEnd(VP);                           // Get the result of the conversion (will wait if it have not finished), returns 16-bit integer result
   */
   adcAttachPin(34);
   analogSetWidth(9);
   analogSetCycles(255);
   analogSetClockDiv(255); // 1338mS
-  #endif
-  
+#endif
+
   // heltec screen
-  #ifdef HELTEC 
-  pinMode(16,OUTPUT);
+#ifdef HELTEC
+  pinMode(16, OUTPUT);
   digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
-  delay(50); 
-  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high 
-  #endif
+  delay(50);
+  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high
+#endif
   // heltec screen
   ui.init();// Initialising the UI will init the display too.
   display.flipScreenVertically();
-  display.displayOn(); 
+  display.displayOn();
   display.setFont(ArialMT_Plain_24);
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.drawString(0, 0, "Ave");
-  display.drawXbm(50,30, WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
+  display.drawXbm(50, 30, WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
   display.display();
   delay (2000);
 
   check_EEPROM ();
-  
+
   pinMode(STATUS_LED, OUTPUT);
   pinMode(TOUCH_LED, OUTPUT);
   pinMode(WRITE_LED, OUTPUT);
@@ -211,35 +211,35 @@ void setup() {
 
 
   DMXWiFiConfig.initConfig();
-    
+
   dmx_direction = DMXWiFiConfig.inputToNetworkMode();
 
   if ( DMXWiFiConfig.APMode() ) {            // WiFi startup
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("AP_MODE ");
     Serial.print(DMXWiFiConfig.SSID());
-    #endif
-    
-    WiFi.mode(WIFI_AP);   
-    WiFi.softAP(DMXWiFiConfig.SSID(), DMXWiFiConfig.password(),wifichannel,hiddens);
+#endif
 
-    #ifdef DEBUG
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(DMXWiFiConfig.SSID(), DMXWiFiConfig.password(), wifichannel, hiddens);
+
+#ifdef DEBUG
     Serial.print(" created access point at ");
     Serial.print(DMXWiFiConfig.apIPAddress());
     Serial.print(" accessPoint SSID ");
     Serial.println(DMXWiFiConfig.SSID());
     Serial.print(", ");
-    #endif
-    
+#endif
+
     WiFi.softAPConfig(DMXWiFiConfig.apIPAddress(), DMXWiFiConfig.apGateway(), DMXWiFiConfig.apSubnet());
-    
+
   } else {
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("wifi connecting to ");
     Serial.print(DMXWiFiConfig.SSID());
     Serial.print("... ");
-    #endif
-    
+#endif
+
     WiFi.mode(WIFI_STA);
     strcpy(ssid, DMXWiFiConfig.SSID());
     strcpy(password, DMXWiFiConfig.password());
@@ -247,12 +247,12 @@ void setup() {
 
     // static IP otherwise uses DHCP
     if ( DMXWiFiConfig.staticIPAddress() ) {
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.print("static IP");
-      #endif
-      
+#endif
+
       WiFi.config(DMXWiFiConfig.stationIPAddress(), DMXWiFiConfig.stationGateway(), DMXWiFiConfig.stationSubnet());
-      
+
     } else {
       dhcpStatus = 1;
     }
@@ -262,10 +262,10 @@ void setup() {
       blinkLED();
 
     }
-  #ifdef DEBUG
-  Serial.print("wifi started ");
-  Serial.println(WiFi.localIP());
-  #endif
+#ifdef DEBUG
+    Serial.print("wifi started ");
+    Serial.println(WiFi.localIP());
+#endif
   }
   display.clear();
   display.drawString(0, 0, "WIFI OK");
@@ -275,21 +275,21 @@ void setup() {
   //------------------- Initialize serialDMX  -------------------
 
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {                // DMX Driver startup based on direction flag
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.println("starting DMX");
-    #endif
+#endif
   } else {
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.println("starting DMX input");
-    #endif
+#endif
     ESP32DMX.setDirectionPin(DIRECTION_PIN);
     ESP32DMX.setDataReceivedCallback(&gotDMXCallback);
-    #ifdef HELTEC 
+#ifdef HELTEC
     ESP32DMX.startInput(18);// U2_RX Gpio 18
-    #endif
-    #ifdef OLED
+#endif
+#ifdef OLED
     ESP32DMX.startInput();// U2_RX Gpio 16 default
-    #endif
+#endif
   }
 
   //------------------- Initialize network<->DMX interfaces -------------------
@@ -313,10 +313,10 @@ void setup() {
   if ( bootStatus ) {
     artNetInterface->setStatus1Flag(ARTNET_STATUS1_FACTORY_BOOT, 1);
   }
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.print("interfaces created ");
-  #endif
-  
+#endif
+
   // if output from network, start wUDP listening for packets
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {
     if ( DMXWiFiConfig.multicastMode() ) {
@@ -331,27 +331,27 @@ void setup() {
 
     aUDP.begin(artNetInterface->dmxPort());
     artNetInterface->send_art_poll_reply(&aUDP);
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("udp started listening,");
-    #endif
+#endif
   }
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.println(" setup complete.");
-  #endif
-  
+#endif
+
   blinkLED();
 
 
   // increase the priority of this task (main.cpp sets it at 1);
   vTaskPrioritySet(xTaskGetCurrentTaskHandle(), 2);
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.print("number of tasks is ");
   Serial.println(uxTaskGetNumberOfTasks());
-  #endif
+#endif
 
-  #ifdef HELTEC 
+#ifdef HELTEC
   getLevel();
-  #endif
+#endif
   info();
 
 } //setup
@@ -378,27 +378,27 @@ void setup() {
 
 void loop() {
   now = millis();
-  if (screen==1) {
-    if(now - last_screen_check_time > SCREEN_TIMEOUT) {
-      #ifdef DEBUG
+  if (screen == 1) {
+    if (now - last_screen_check_time > SCREEN_TIMEOUT) {
+#ifdef DEBUG
       Serial.print("shutdown screen... ");
-      #endif
+#endif
       shutdown_screen();
     }
-    #ifdef HELTEC 
-    if(now - last_bat_check_time > bat_check) {
-      #ifdef DEBUG
+#ifdef HELTEC
+    if (now - last_bat_check_time > bat_check) {
+#ifdef DEBUG
       Serial.println("getLevel();");
-      #endif
+#endif
       getLevel();
-      if (frameCountnow==5) {
-      info(); 
+      if (frameCountnow == 5) {
+        info();
       }//info
-      last_bat_check_time=now;
+      last_bat_check_time = now;
     }
-    #endif
+#endif
   }//if (screen==1)
- 
+
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {
 
     art_packet_result = artNetInterface->readDMXPacket(&aUDP);
@@ -438,6 +438,6 @@ void loop() {
 
   vTaskDelay(1);
   check_btn();
-  
+
 }// loop()
 
