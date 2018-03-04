@@ -16,23 +16,23 @@
 
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
-    int dmx_start;
-    int mode_start;
-    int wifichannel;
-    int hidden;
-    int hiddens;
+int dmx_start;
+int mode_start;
+int wifichannel;
+int hidden;
+int hiddens;
 
- #include <Wire.h>  // Only needed for Arduino 1.6.5 and earlier
- #include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
- #include "OLEDDisplayUi.h"// Include the UI lib
- #include "images.h"// Include custom images
+#include <Wire.h>  // Only needed for Arduino 1.6.5 and earlier
+#include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
+#include "OLEDDisplayUi.h"// Include the UI lib
+#include "images.h"// Include custom images
 #ifdef OLED
- SSD1306  display(0x3c, 21, 22);
+SSD1306  display(0x3c, 21, 22);
 #endif
-#ifdef HELTEC 
- SSD1306  display(0x3c, 4, 15);// heltec screen
+#ifdef HELTEC
+SSD1306  display(0x3c, 4, 15);// heltec screen
 #endif
- OLEDDisplayUi ui     ( &display );
+OLEDDisplayUi ui     ( &display );
 
 #include <RBD_Timer.h>  // https://github.com/alextaujenis/RBD_Timer
 #include <RBD_Button.h> // https://github.com/alextaujenis/RBD_Button
@@ -50,10 +50,10 @@ RBD::Button button7(T7);//down
 RBD::Button button6(T6);//enter
 #endif
 
-uint8_t init_btn9=0;
-uint8_t init_btn8=0;
-uint8_t init_btn7=0;
-uint8_t init_btn6=0;
+uint8_t init_btn9 = 0;
+uint8_t init_btn8 = 0;
+uint8_t init_btn7 = 0;
+uint8_t init_btn6 = 0;
 
 int frameCount = 5;
 int frameCountnow = 0;
@@ -61,12 +61,12 @@ int enter = 0;
 
 #define SCREEN_TIMEOUT 30000
 unsigned long last_screen_check_time = 0;
-uint8_t screen =1;
+uint8_t screen = 1;
 unsigned long now;
 
-int mode_start_value=0;
+int mode_start_value = 0;
 
- 
+
 
 
 #include <LXESP32DMX.h>
@@ -152,7 +152,7 @@ uint8_t led_state_r = 0;
    utility function to toggle indicator LED on/off
 */
 void blinkLED() {
-  if ( led_state==1 ) {
+  if ( led_state == 1 ) {
     digitalWrite(STATUS_LED, HIGH);
     led_state = 0;
   } else {
@@ -162,7 +162,7 @@ void blinkLED() {
 }
 
 void blinkLEDR() {
-  if ( led_state_r==1 ) {
+  if ( led_state_r == 1 ) {
     digitalWrite(TOUCH_LED, HIGH);
     led_state_r = 0;
   } else {
@@ -342,7 +342,7 @@ void gotDMXCallback(int slots) {
 //    artNetInterface->send_art_tod(&aUDP, tableOfDevices.rawBytes(), tableOfDevices.count());
 //#ifdef DEBUG
 //    Serial.println("_______________ Table Of Devices _______________");
-//#endif    
+//#endif
 //    tableOfDevices.printTOD();
 //  }
 //}//sendTODifChanged()
@@ -396,30 +396,30 @@ void gotDMXCallback(int slots) {
 *************************************************************************/
 
 void setup() {
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.begin(115200);
   Serial.setDebugOutput(1); //use uart0 for debugging
-  #endif
+#endif
   // heltec screen
-  #ifdef HELTEC 
-  pinMode(16,OUTPUT);
+#ifdef HELTEC
+  pinMode(16, OUTPUT);
   digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
-  delay(50); 
-  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high 
-  #endif
+  delay(50);
+  digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high
+#endif
   // heltec screen
   ui.init();// Initialising the UI will init the display too.
   display.flipScreenVertically();
-  display.displayOn(); 
+  display.displayOn();
   display.setFont(ArialMT_Plain_24);
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.drawString(0, 0, "Ave");
-  display.drawXbm(50,30, WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
+  display.drawXbm(50, 30, WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
   display.display();
   delay (2000);
 
- check_EEPROM ();
-  
+  check_EEPROM ();
+
   pinMode(STATUS_LED, OUTPUT);
   pinMode(TOUCH_LED, OUTPUT);
   pinMode(WRITE_LED, OUTPUT);
@@ -430,36 +430,36 @@ void setup() {
   uint8_t dhcpStatus = 0;                     //hence, read in begin and replace below if startup pin is low
 
 
-    DMXWiFiConfig.initConfig();
-    
-    dmx_direction = DMXWiFiConfig.inputToNetworkMode();
+  DMXWiFiConfig.initConfig();
+
+  dmx_direction = DMXWiFiConfig.inputToNetworkMode();
   //rdm_enabled   = DMXWiFiConfig.rdmMode();
   //rdm_enabled   = 0;off
 
   if ( DMXWiFiConfig.APMode() ) {            // WiFi startup
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("AP_MODE ");
     Serial.print(DMXWiFiConfig.SSID());
-    #endif
-    
-    WiFi.mode(WIFI_AP);
-    
-    WiFi.softAP(DMXWiFiConfig.SSID(), DMXWiFiConfig.password(),wifichannel,hiddens);
+#endif
 
-    #ifdef DEBUG
+    WiFi.mode(WIFI_AP);
+
+    WiFi.softAP(DMXWiFiConfig.SSID(), DMXWiFiConfig.password(), wifichannel, hiddens);
+
+#ifdef DEBUG
     Serial.print(" created access point at ");
     Serial.print(DMXWiFiConfig.apIPAddress());
     Serial.print(" accessPoint SSID ");
     Serial.println(DMXWiFiConfig.SSID());
     Serial.print(", ");
-    #endif
+#endif
     WiFi.softAPConfig(DMXWiFiConfig.apIPAddress(), DMXWiFiConfig.apGateway(), DMXWiFiConfig.apSubnet());
   } else {
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("wifi connecting to ");
     Serial.print(DMXWiFiConfig.SSID());
     Serial.print("... ");
-    #endif
+#endif
     WiFi.mode(WIFI_STA);
     strcpy(ssid, DMXWiFiConfig.SSID());
     strcpy(password, DMXWiFiConfig.password());
@@ -467,9 +467,9 @@ void setup() {
 
     // static IP otherwise uses DHCP
     if ( DMXWiFiConfig.staticIPAddress() ) {
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.print("static IP");
-      #endif
+#endif
       WiFi.config(DMXWiFiConfig.stationIPAddress(), DMXWiFiConfig.stationGateway(), DMXWiFiConfig.stationSubnet());
     } else {
       dhcpStatus = 1;
@@ -480,10 +480,10 @@ void setup() {
       blinkLED();
 
     }
-  #ifdef DEBUG
-  Serial.print("wifi started ");
-  Serial.println(WiFi.localIP());
-  #endif
+#ifdef DEBUG
+    Serial.print("wifi started ");
+    Serial.println(WiFi.localIP());
+#endif
   }
   display.clear();
   display.drawString(0, 0, "WIFI OK");
@@ -493,14 +493,14 @@ void setup() {
   //------------------- Initialize serialDMX  -------------------
 
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {                // DMX Driver startup based on direction flag
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.println("starting DMX");
-    #endif
-   // ESP32DMX.startRDM(DIRECTION_PIN);
+#endif
+    // ESP32DMX.startRDM(DIRECTION_PIN);
   } else {
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.println("starting DMX input");
-    #endif
+#endif
     ESP32DMX.setDirectionPin(DIRECTION_PIN);
     ESP32DMX.setDataReceivedCallback(&gotDMXCallback);
     ESP32DMX.startInput(16);
@@ -515,8 +515,8 @@ void setup() {
   artNetInterface->setUniverse(DMXWiFiConfig.artnetPortAddress());	//setUniverse for LXArtNet class sets complete Port-Address
   artNetInterface->setArtAddressReceivedCallback(&artAddressReceived);
   artNetInterface->setArtIpProgReceivedCallback(&artIpProgReceived);
-//  artNetInterface->setArtTodRequestCallback(&artTodRequestReceived);
-//  artNetInterface->setArtRDMCallback(&artRDMReceived);
+  //  artNetInterface->setArtTodRequestCallback(&artTodRequestReceived);
+  //  artNetInterface->setArtRDMCallback(&artRDMReceived);
   char* nn = DMXWiFiConfig.nodeName();
   if ( nn[0] != 0 ) {
     strcpy(artNetInterface->longName(), nn);
@@ -529,17 +529,17 @@ void setup() {
   if ( bootStatus ) {
     artNetInterface->setStatus1Flag(ARTNET_STATUS1_FACTORY_BOOT, 1);
   }
-//  if ( rdm_enabled ) {
-//    #ifdef DEBUG
-//    Serial.println("rdm_enabled");
-//    #endif
-//    artNetInterface->setStatus1Flag(ARTNET_STATUS1_RDM_CAPABLE, 1);
-//  }//( rdm_enabled )
+  //  if ( rdm_enabled ) {
+  //    #ifdef DEBUG
+  //    Serial.println("rdm_enabled");
+  //    #endif
+  //    artNetInterface->setStatus1Flag(ARTNET_STATUS1_RDM_CAPABLE, 1);
+  //  }//( rdm_enabled )
   artNetInterface->setStatus1Flag(ARTNET_STATUS1_RDM_CAPABLE, 1);
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.print("interfaces created ");
-  #endif
-  
+#endif
+
   // if output from network, start wUDP listening for packets
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {
     if ( DMXWiFiConfig.multicastMode() ) {
@@ -554,23 +554,23 @@ void setup() {
 
     aUDP.begin(artNetInterface->dmxPort());
     artNetInterface->send_art_poll_reply(&aUDP);
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("udp started listening,");
-    #endif
+#endif
   }
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.println(" setup complete.");
-  #endif
-  
+#endif
+
   blinkLED();
 
 
   // increase the priority of this task (main.cpp sets it at 1);
   vTaskPrioritySet(xTaskGetCurrentTaskHandle(), 2);
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.print("number of tasks is ");
   Serial.println(uxTaskGetNumberOfTasks());
-  #endif
+#endif
 
   info();
 
@@ -621,36 +621,36 @@ void copyDMXToOutput(void) {
 
 void checkConfigReceived(LXDMXWiFi* interface, WiFiUDP* cUDP) {
   if ( strcmp(CONFIG_PACKET_IDENT, (const char *) interface->packetBuffer()) == 0 ) {	//match header to config packet
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.print("config packet received, ");
-    #endif
+#endif
     uint8_t reply = 0;
     if ( interface->packetBuffer()[8] == '?' ) {	//packet opcode is query
       DMXWiFiConfig.readFromPersistentStore();
       reply = 1;
     } else if (( interface->packetBuffer()[8] == '!' ) && (interface->packetSize() >= 171)) { //packet opcode is set
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println("upload packet");
-      #endif
+#endif
       DMXWiFiConfig.copyConfig( interface->packetBuffer(), interface->packetSize());
       DMXWiFiConfig.commitToPersistentStore();
       reply = 1;
     } else if ( interface->packetBuffer()[8] == '^' ) {
       ESP.restart();
     } else {
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println("unknown config opcode.");
-      #endif
+#endif
     }
     if ( reply) {
       DMXWiFiConfig.hidePassword();													// don't transmit password!
       cUDP->beginPacket(cUDP->remoteIP(), interface->dmxPort());				// unicast reply
       cUDP->write((uint8_t*)DMXWiFiConfig.config(), DMXWiFiConfigSIZE);
       cUDP->endPacket();
-      #ifdef DEBUG
+#ifdef DEBUG
       Serial.println(DMXWiFiConfig.SSID());
       Serial.println("reply complete.");
-      #endif
+#endif
       DMXWiFiConfig.restorePassword();
     }
     interface->packetBuffer()[0] = 0; //insure loop without recv doesn't re-trigger
@@ -672,28 +672,28 @@ void checkConfigReceived(LXDMXWiFi* interface, WiFiUDP* cUDP) {
 
 void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
   if ( got_dmx ) {
-   // interface->setNumberOfSlots(got_dmx);			// set slots & copy to interface
+    // interface->setNumberOfSlots(got_dmx);			// set slots & copy to interface
     interface->setNumberOfSlots(512);      // set slots 512 & copy to interface
 
     xSemaphoreTake( ESP32DMX.lxDataLock, portMAX_DELAY );
     for (int i = dmx_start; i <= got_dmx; i++) {
-      interface->setSlot((i-dmx_start+1), ESP32DMX.getSlot(i));
+      interface->setSlot((i - dmx_start + 1), ESP32DMX.getSlot(i));
     }
-  /////////////////////////////////////////////////////////////////
-  //////                   mode set                          //////
-  /////////////////////////////////////////////////////////////////
-  if (mode_start==1) {
-    mode_start_value=10;
+    /////////////////////////////////////////////////////////////////
+    //////                   mode set                          //////
+    /////////////////////////////////////////////////////////////////
+    if (mode_start == 1) {
+      mode_start_value = 10;
     }//mode start 1
-    if (mode_start==2) {
-    mode_start_value=100;
+    if (mode_start == 2) {
+      mode_start_value = 100;
     }//mode start 2
-    if (mode_start==3) {
-    mode_start_value=200;
+    if (mode_start == 3) {
+      mode_start_value = 200;
     }//mode start 3
     interface->setSlot(512, mode_start_value);
     xSemaphoreGive( ESP32DMX.lxDataLock );
-    
+
     if ( multicast ) {
       interface->sendDMX(iUDP, DMXWiFiConfig.inputAddress(), WiFi.localIP());
     } else {
@@ -701,7 +701,7 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
     }
     got_dmx = 0;
     blinkLED();
-  } 
+  }
 }//checkInput
 
 /************************************************************************
@@ -724,15 +724,15 @@ void checkInput(LXDMXWiFi* interface, WiFiUDP* iUDP, uint8_t multicast) {
 
 void loop() {
   now = millis();
-  if (screen==1) {
-    if(now - last_screen_check_time > SCREEN_TIMEOUT) {
-      #ifdef DEBUG
+  if (screen == 1) {
+    if (now - last_screen_check_time > SCREEN_TIMEOUT) {
+#ifdef DEBUG
       Serial.print("shutdown screen... ");
-      #endif
+#endif
       shutdown_screen();
     }
   }//if (screen==1)
- 
+
   if ( dmx_direction == OUTPUT_FROM_NETWORK_MODE ) {
 
     art_packet_result = artNetInterface->readDMXPacket(&aUDP);
@@ -759,13 +759,13 @@ void loop() {
       blinkLED();
       blinkLEDR();
       // output was not updated last 5 times through loop so use a cycle to perform the next step of RDM discovery
-//      if ( rdm_enabled ) {
-//        idle_count++;
-//        if ( idle_count > 5 ) {
-//          updateRDMDiscovery();
-//          idle_count = 0;
-//        }
-//      }
+      //      if ( rdm_enabled ) {
+      //        idle_count++;
+      //        if ( idle_count > 5 ) {
+      //          updateRDMDiscovery();
+      //          idle_count = 0;
+      //        }
+      //      }
     }
 
   } else {    //direction is input to network
@@ -780,6 +780,6 @@ void loop() {
 
   vTaskDelay(1);
   check_btn();
-  
+
 }// loop()
 
