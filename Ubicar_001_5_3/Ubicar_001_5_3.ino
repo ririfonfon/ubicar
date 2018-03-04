@@ -17,11 +17,11 @@
 //unsigned long last_wifi_check_time = 0;
 
 #if defined(ARDUINO) && ARDUINO >= 100
-  // No extras
+// No extras
 #elif defined(ARDUINO) // pre-1.0
-  // No extras
+// No extras
 #elif defined(ESP_PLATFORM)
-  #include "arduinoish.hpp"
+#include "arduinoish.hpp"
 #endif
 
 ///////////////////////////////Lib esp32_digital_led_lib//////////////////////////////
@@ -42,16 +42,16 @@ unsigned long now;
 int effet_etat = 0;
 int last_time_effet = 0;
 int type_effet = 0;
-int modulo=0;
-unsigned int str_ws=0;
+int modulo = 0;
+unsigned int str_ws = 0;
 unsigned int l_str;
-int type_modulo=0;
+int type_modulo = 0;
 int str = 0;
 int str_l = 0;
 int pix_pos;
 int pix_start;
 int pix_center;
-int pix_end;    
+int pix_end;
 int master;
 float rrr;
 float ggg;
@@ -75,7 +75,7 @@ unsigned long t_now_effet = 0;
 uint8_t strob_count = 0;
 uint8_t strob_count_l = 0;
 unsigned long str_ws_last = 0;
-unsigned long t_last_l =0;
+unsigned long t_last_l = 0;
 #define STROB_FRACTION 10
 #define STROB_ON 1
 #define STROB_ON_MS 30
@@ -97,7 +97,7 @@ int M_g3;
 int M_g3_ref;
 int M_g4;
 int S_seuil;
-int old_S_seuil=0;
+int old_S_seuil = 0;
 int S_count;
 int a;
 int led_a;
@@ -110,7 +110,7 @@ float str_blind_ws = 1;
 float str_blind_l = 1;
 
 ///////////////////////////////////////PWM setting/////////////////////////////////////////
-int freq =12000;
+int freq = 12000;
 int resolution = 16;
 int ledChannela = 4;
 int ledChannelb = 5;
@@ -120,7 +120,7 @@ int ledPinb = 2;
 int ledPinc = 15;
 uint8_t ledArray[3] = {1, 2, 3}; // three led channels
 const boolean invert = true; // set true if common anode, false if common cathode
-      
+
 ///////////////////////////////////// Artnet settings /////////////////////////////////////
 ArtnetWifi artnet;
 const int startUniverse = 0; // CHANGE FOR YOUR SETUP most software this is 1, some software send out artnet first universe as 0.
@@ -133,13 +133,13 @@ int previousDataLength = 0;
 
 ///////////////////////////////////////////////// SETUP ////////////////////////////////////////
 void setup() {
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.begin(115200);
-  #endif   
+#endif
   pwm_init();
   leds_init();
   ConnectWifi();
-   // OTA
+  // OTA
   ota_setup();
   artnet.begin();
   artnet.setArtDmxCallback(onDmxFrame);
@@ -150,11 +150,11 @@ void setup() {
 void loop() {
   artnet.read();
   eff_modulo();
-  effet();   
+  effet();
   effet_led_mode();
   if (! WiFi.isConnected()) {
-   ledBlack();//passe led noir
-   ConnectWifi(); 
+    ledBlack();//passe led noir
+    ConnectWifi();
   }
   // OTA
   ota_loop();

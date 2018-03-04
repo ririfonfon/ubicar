@@ -48,7 +48,7 @@ void eff_modulo() {
     } else if (str == 1 && t_now - str_ws_last > STROB_ON_MS) {
       str_ws_last = t_now;
       str = 0;
-  Black();
+      Black();
     } else {
       return;
     }
@@ -106,7 +106,7 @@ void eff_modulo() {
     } else if (str == 1 && str_ws_last < t_now && t_now - str_ws_last > (STROB_ON_MS)) {
       str_ws_last = t_now;
       str = 0;
-  Black();
+      Black();
     } else {
       return;
     }
@@ -127,7 +127,7 @@ void eff_modulo() {
 
   else if ( type_modulo == 6 ) {
     if (old_S_seuil != S_seuil) {
-  Black();
+      Black();
       for (int i = 0; i < numberOfLed; i++) {
         randArray[i] = false;
       }

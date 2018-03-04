@@ -1,7 +1,7 @@
 
 
-void pwm_init(){
-  /////////////////////////////////////////////////PWM setup 
+void pwm_init() {
+  /////////////////////////////////////////////////PWM setup
   ledcAttachPin(ledPina, ledChannela);
   ledcAttachPin(ledPinb, ledChannelb);
   ledcAttachPin(ledPinc, ledChannelc);
