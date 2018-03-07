@@ -1,10 +1,24 @@
+/////////////////////////////////////////ID/////////////////////////////////////
+// ID grande = 1  moyene = 2 petite = 3
+#define NODE_NUMBER 1
+#define VERSION 1
 
 /////////////////////////////////////////Adresse/////////////////////////////////////
-// adresse grande = 1 moyene = 18 petite = 35
+// adresse grande = 1  moyene = 18 petite = 35
+// strip   grande = 90 moyene = 78 petite = 66
+#if defined(NODE_NUMBER) && NODE_NUMBER == 1
 #define adr 1
+#define NUM_LEDS_PER_STRIP 90
+#elif defined (NODE_NUMBER) && NODE_NUMBER == 2
+#define adr 18
+#define NUM_LEDS_PER_STRIP 78
+#elif defined (NODE_NUMBER) && NODE_NUMBER == 3
+#define adr 35
+#define NUM_LEDS_PER_STRIP 66
+#endif
 
 /////////////////////////////////////////Debug///////////////////////////////////////
-#define DEBUG 1
+//#define DEBUG 1
 //#define DEBUG_dmx 1
 //#define DEBUG_STR 1
 
@@ -24,12 +38,14 @@
 #include "arduinoish.hpp"
 #endif
 
+#define HBSIZE 32
+char nodeName[HBSIZE];
+byte myID;
+
 ///////////////////////////////Lib esp32_digital_led_lib//////////////////////////////
 #include "esp32_digital_led_lib.h"
 #define min(m,n) ((m)<(n)?(m):(n))
 #define NUM_STRIPS 4
-// strip grande = 90 moyen = 78 petite = 66
-#define NUM_LEDS_PER_STRIP 90
 int PINS[NUM_STRIPS] = {23, 22, 18, 5};
 const int numberOfChannels = NUM_STRIPS * NUM_LEDS_PER_STRIP * 3;
 const int numberOfLed = NUM_STRIPS * NUM_LEDS_PER_STRIP ;
@@ -136,6 +152,20 @@ void setup() {
 #ifdef DEBUG
   Serial.begin(115200);
 #endif
+  // NODE ID
+#ifdef NODE_NUMBER
+  eeprom_setID((byte)NODE_NUMBER);
+#endif
+
+  // NAME
+  myID = eeprom_getID();
+  String myName("Pira");
+  sprintf(nodeName, "Pira %02i %i", myID, VERSION);
+#ifdef DEBUG
+  Serial.print("Starting ");
+  Serial.println(nodeName);
+#endif
+
   pwm_init();
   leds_init();
   ConnectWifi();
