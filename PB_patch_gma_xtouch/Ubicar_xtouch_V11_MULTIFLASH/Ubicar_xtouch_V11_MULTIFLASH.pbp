@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.50 (Windows - x86)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.62 (Windows - x86)">
   <section name="config">
     <options closefiles="1" openmode="1" name="Ubicar_xtouch_V11_MULTIFLASH"/>
   </section>
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2018-02-22 21:41" user="ririf" host="BOMBASSEPORTABL"/>
+    <lastopen date="2018-03-08 15:43" user="ririf" host="BOMBASSEPORTABL"/>
   </section>
   <section name="files">
     <file name="MIDI_Faders.pb">
@@ -47,14 +47,13 @@
     <target name="Default Target" enabled="1" default="1">
       <inputfile value="MidiMAIN.pb"/>
       <outputfile value=""/>
-      <compiler version="PureBasic 5.50 (Windows - x86)"/>
+      <compiler version="PureBasic 5.62 (Windows - x86)"/>
       <executable value="Ubicar_xtouch_V11_MULTIFLASH_11.exe"/>
       <options thread="1" xpskin="1" admin="1" onerror="1" debug="1"/>
       <purifier enable="1"/>
       <temporaryexe value="source"/>
       <icon enable="1">gmanet.ico</icon>
       <debugger custom="1" type="ide"/>
-      <warnings custom="1" type="ignore"/>
       <versioninfo enable="1">
         <field0 value="11"/>
         <field1 value="11"/>
