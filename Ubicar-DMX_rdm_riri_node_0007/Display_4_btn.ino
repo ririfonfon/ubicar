@@ -15,10 +15,10 @@ void info () {
   display.drawString(0, 20, "Wifi Chan ");
   display.drawString(55, 20, String(wifichannel));
   if (hidden == 1) {
-    display.drawString(75, 20, "Visible");
+    display.drawString(75, 20, "Cacher");
   }//hidden 1
   if (hidden == 2) {
-    display.drawString(75, 20, "Cacher");
+    display.drawString(75, 20, "Visible");
   }//hidden 2
   display.drawString(0, 30, "DMX Input");
   display.drawString(65, 30, String(dmx_start));
@@ -192,10 +192,10 @@ void hidd () {
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.drawString(20, 0, "Wifi Hidden");
   if (hidden == 1) {
-    display.drawString(45, 16, "Visible");
+    display.drawString(45, 16, "Cacher");
   }//hidden 1
   if (hidden == 2) {
-    display.drawString(45, 16, "Cacher");
+    display.drawString(45, 16, "Visible");
   }//hidden 2
   display.display();
 }//hidd
@@ -207,10 +207,10 @@ void hiddenter () {
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.drawString(20, 0, "Wifi Hidden");
   if (hidden == 1) {
-    display.drawString(45, 16, "Visible");
+    display.drawString(45, 16, "Cacher");
   }//hidden 1
   if (hidden == 2) {
-    display.drawString(45, 16, "Cacher");
+    display.drawString(45, 16, "Visible");
   }//hidden 2
   display.display();
 }//hiddenter
@@ -222,11 +222,11 @@ void hiddstore () {
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   display.drawString(20, 0, "Wifi Hidden");
   if (hidden == 1) {
-    display.drawString(45, 16, "Visible");
+    display.drawString(45, 16, "Cacher");
     hiddens = true;
   }//hidden 1
   if (hidden == 2) {
-    display.drawString(45, 16, "Cacher");
+    display.drawString(45, 16, "Visible");
     hiddens = false;
   }//hidden 2
   display.drawString(15, 32, "....STORE....");
