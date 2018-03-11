@@ -26,7 +26,7 @@
 /////////////////////////////////////////lib/////////////////////////////////////////
 #include <WiFi.h>
 #include <WiFiUdp.h>
-#include <ArtnetWifi.h>
+#include <ArtnetWifi.h>//https://github.com/rstephan/ArtnetWifi
 //#define WIFI_TIMEOUT 30000
 //unsigned long last_wifi_check_time = 0;
 
