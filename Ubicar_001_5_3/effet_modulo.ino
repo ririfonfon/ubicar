@@ -127,7 +127,6 @@ void eff_modulo() {
 
   else if ( type_modulo == 6 ) {
     if (old_S_seuil != S_seuil) {
-      Black();
       for (int i = 0; i < numberOfLed; i++) {
         randArray[i] = false;
       }
@@ -148,6 +147,7 @@ void eff_modulo() {
     r = rr * master / 255;
     g = gg * master / 255;
     b = bb * master / 255;
+    Black();
     for (int i = 0; i < numberOfLed; i++) {
       if (randArray[i]) {
         int n_strip = i / NUM_LEDS_PER_STRIP;
