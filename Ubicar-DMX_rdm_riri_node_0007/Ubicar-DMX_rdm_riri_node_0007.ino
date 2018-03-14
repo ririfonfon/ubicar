@@ -9,10 +9,10 @@
 
 */
 /**************************************************************************/
-//#define DEBUG 1
+#define DEBUG 1
 
-#define HELTEC 1
-//#define OLED 1
+//#define HELTEC 1
+#define OLED 1
 
 #include "EEPROM.h"
 #define EEPROM_SIZE 64
@@ -503,7 +503,13 @@ void setup() {
 #endif
     ESP32DMX.setDirectionPin(DIRECTION_PIN);
     ESP32DMX.setDataReceivedCallback(&gotDMXCallback);
-    ESP32DMX.startInput(16);
+#ifdef HELTEC
+    ESP32DMX.startInput(18);
+#endif
+#ifdef OLED
+    ESP32DMX.startInput();
+#endif
+
   }
 
   //------------------- Initialize network<->DMX interfaces -------------------
