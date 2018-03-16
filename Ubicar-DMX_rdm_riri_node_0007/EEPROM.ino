@@ -18,10 +18,10 @@ void check_EEPROM () {
     display.drawString(0, 20, "EEPROM content cleared!");
     display.display();
     delay(1000);
-    int dmx_start = 1;
+    int dmx_start = 201;
     int mode_start = 1;
-    int wifichannel = 1;
-    int hiddens = true;
+    int wifichannel = 6;
+    int hiddens = false;
     EEPROM.write(1, dmx_start);
     EEPROM.write(2, mode_start);
     EEPROM.write(3, wifichannel);
@@ -47,10 +47,10 @@ void check_EEPROM () {
     display.drawString(0, 20, "EEPROM content cleared!");
     display.display();
     delay(1000);
-    dmx_start = 1;
+    dmx_start = 201;
     mode_start = 1;
-    wifichannel = 1;
-    hiddens = true;
+    wifichannel = 6;
+    hiddens = false;
     EEPROM.write(1, dmx_start);
     EEPROM.write(2, mode_start);
     EEPROM.write(3, wifichannel);
