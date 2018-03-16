@@ -15,7 +15,7 @@
 #define OLED 1
 
 #include "EEPROM.h"
-#define EEPROM_SIZE 64
+#define EEPROM_SIZE 128
 int dmx_start;
 int mode_start;
 int wifichannel;
@@ -733,7 +733,7 @@ void loop() {
   if (screen == 1) {
     if (now - last_screen_check_time > SCREEN_TIMEOUT) {
 #ifdef DEBUG
-      Serial.print("shutdown screen... ");
+      Serial.println("shutdown screen... ");
 #endif
       shutdown_screen();
     }
