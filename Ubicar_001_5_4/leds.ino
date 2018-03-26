@@ -35,7 +35,14 @@ void initTest() {
   leds_show();
   delay(500);
   for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-
+    strands[0]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
+    strands[1]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
+    strands[2]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
+    strands[3]->pixels[i] = pixelFromRGB(test_led_niv, 0, 0);
+  }//for i
+  leds_show();
+  delay(500);
+  for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
     strands[0]->pixels[i] = pixelFromRGB(0, test_led_niv, 0);
     strands[1]->pixels[i] = pixelFromRGB(0, test_led_niv, 0);
     strands[2]->pixels[i] = pixelFromRGB(0, test_led_niv, 0);
@@ -44,7 +51,6 @@ void initTest() {
   leds_show();
   delay(500);
   for (int i = 0 ; i < NUM_LEDS_PER_STRIP ; i++) {
-
     strands[0]->pixels[i] = pixelFromRGB(0, 0, test_led_niv);
     strands[1]->pixels[i] = pixelFromRGB(0, 0, test_led_niv);
     strands[2]->pixels[i] = pixelFromRGB(0, 0, test_led_niv);
@@ -71,16 +77,13 @@ void gpioSetup(int gpioNum, int gpioMode, int gpioVal) {
 
 
 void leds_init() {
-
   for (int k = 0; k < NUM_STRIPS; k++) {
     STRANDS[k] = {  .rmtChannel = k, .gpioNum = PINS[k], .ledType = LED_WS2812B_V3, .brightLimit = 32,
                     .numPixels = NUM_LEDS_PER_STRIP, .pixels = nullptr, ._stateVars = nullptr
                  };
     gpioSetup(PINS[k], OUTPUT, LOW);
   }
-
   int STRANDCNT = sizeof(STRANDS) / sizeof(STRANDS[0]);
-
   if (digitalLeds_initStrands(STRANDS, STRANDCNT)) {
 #ifdef DEBUG
     Serial.println("Init FAILURE: halting");
