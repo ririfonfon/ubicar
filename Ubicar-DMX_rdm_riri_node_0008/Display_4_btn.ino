@@ -430,9 +430,10 @@ void check_btn() {
   if (button9.isPressed() && button8.isPressed()) {
     display.displayOn();
     enter = 0;
-    frameCountnow = 3;
+    frameCountnow = 5;
     screen = 1;
     last_screen_check_time = now;
+    info();
     gotTouch9();
   }// display on
 

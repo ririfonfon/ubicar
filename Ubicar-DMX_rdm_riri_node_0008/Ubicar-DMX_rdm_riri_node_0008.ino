@@ -14,7 +14,11 @@
 //#define OLED 1
 
 #ifdef HELTEC
-#define NB_SAMPLE    1000
+#define NB_SAMPLE    100
+int i = 0;
+int raw_m;
+long somme = 0;
+int raw = 0;
 int level;
 #endif
 
@@ -27,7 +31,7 @@ int hidden;
 int hiddens;
 
 #include <Wire.h>  // Only needed for Arduino 1.6.5 and earlier
-#include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
+#include "SSD1306.h" // alias for `#include "SSD1306Wire.h"` v 3.2.7
 #include "OLEDDisplayUi.h"// Include the UI lib
 #include "images.h"// Include custom images
 #ifdef OLED
@@ -63,7 +67,7 @@ int frameCount = 5;
 int frameCountnow = 0;
 int enter = 0;
 
-#define bat_check 10000
+#define bat_check 1000
 unsigned long last_bat_check_time = 0 ;
 #define SCREEN_TIMEOUT 90000
 unsigned long last_screen_check_time = 0;
@@ -176,8 +180,12 @@ void setup() {
   */
   adcAttachPin(34);
   analogSetWidth(9);
-  analogSetCycles(255);
-  analogSetClockDiv(255); // 1338mS
+  analogSetCycles(8);
+  analogSetClockDiv(1); // 1338mS
+  analogSetAttenuation(ADC_11db);
+  analogSetPinAttenuation(34,ADC_11db);
+  adcAttachPin(34);
+  adcStart(34);
 #endif
 
   // heltec screen
