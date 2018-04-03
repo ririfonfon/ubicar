@@ -407,7 +407,7 @@ void loop() {
       Serial.println("getLevel();");
 #endif
       getLevel();
-      if (frameCountnow == 5) {
+      if (frameCountnow == 1) {
         info();
       }//info
       last_bat_check_time = now;

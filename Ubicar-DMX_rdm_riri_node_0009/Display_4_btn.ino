@@ -69,20 +69,20 @@ void gotTouch9() {
     frameCountnow = 1;
   }
   if (frameCountnow == 1) {
-    setin();
-  }//setin
-  else if (frameCountnow == 2) {
-    modein();
-  }//modein
-  else if (frameCountnow == 3) {
-    wifichan();
-  }//modein
-  else if (frameCountnow == 4) {
-    hidd();
-  }//modein
-  else if (frameCountnow == 5) {
     info();
   }//info
+  else if (frameCountnow == 2) {
+    setin();
+  }//setin
+  else if (frameCountnow == 3) {
+    modein();
+  }//modein
+  else if (frameCountnow == 4) {
+    wifichan();
+  }//modein
+  else if (frameCountnow == 5) {
+    hidd();
+  }//modein
   else if (frameCountnow == 6) {
     menu = 1;
     wifiscan();
@@ -96,72 +96,72 @@ void gotTouch9() {
 void gotTouch8() {
   if (enter == 1) {
     if (frameCountnow == 1) {
+
+    }//info
+    else if (frameCountnow == 2) {
       dmx_start = dmx_start + 1;
       if (dmx_start > 512) {
         dmx_start = 1;
       }
       setinenter();
     }//setin
-    else if (frameCountnow == 2) {
+    else if (frameCountnow == 3) {
       mode_start = mode_start + 1;
       if (mode_start >= 4) {
         mode_start = 1;
       }// mode_start>=4
       modeinenter();
     }//modein
-    else if (frameCountnow == 3) {
+    else if (frameCountnow == 4) {
       wifichannel = wifichannel + 1;
       if (wifichannel >= 14) {
         wifichannel = 1;
       }// wifichannel >=14
       wifichan();
     }//wifichan
-    else if (frameCountnow == 4) {
+    else if (frameCountnow == 5) {
       hidden = hidden + 1;
       if (hidden >= 3) {
         hidden = 1;
       }//hidden >= 3
       hidd();
     }//hidden
-    else if (frameCountnow == 5) {
-
-    }//info
   }//enter true
 }//up
 
 void gotTouch7() {
   if (enter == 1) {
     if (frameCountnow == 1) {
+
+    }//info
+    else if (frameCountnow == 2) {
       dmx_start = dmx_start - 1;
       if (dmx_start <= 0) {
         dmx_start = 512;
       }
       setinenter();
     }//setin
-    else if (frameCountnow == 2) {
+    else if (frameCountnow == 3) {
       mode_start = mode_start - 1;
       if (mode_start <= 0) {
         mode_start = 3;
       }// mode_start>4
       modeinenter();
     }//modein
-    else if (frameCountnow == 3) {
+    else if (frameCountnow == 4) {
       wifichannel = wifichannel - 1;
       if (wifichannel <= 0) {
         wifichannel = 13;
       }// wifichannel <=0
       wifichan();
     }//channel
-    else if (frameCountnow == 4) {
+    else if (frameCountnow == 5) {
       hidden = hidden - 1;
       if (hidden <= 0) {
         hidden = 2;
       }//hidden <= 0
       hidd();
     }//hidden
-    else if (frameCountnow == 5) {
-
-    }//info
   }//enter true
 }//down
 
@@ -172,40 +172,40 @@ void gotTouch6() {
 #endif
   if (enter == 1) {
     if (frameCountnow == 1) {
-      setinenter();
-    }//setin
-    else if (frameCountnow == 2) {
-      modeinenter();
-    }//modein
-    else if (frameCountnow == 3) {
-      wifichanenter();
-    }//channel
-    else if (frameCountnow == 4) {
-      hiddenter();
-    }//hidden
-    else if (frameCountnow == 5) {
 
     }//info
-    if (frameCountnow == 6) {
+    else if (frameCountnow == 2) {
+      setinenter();
+    }//setin
+    else if (frameCountnow == 3) {
+      modeinenter();
+    }//modein
+    else if (frameCountnow == 4) {
+      wifichanenter();
+    }//channel
+    else if (frameCountnow == 5) {
+      hiddenter();
+    }//hidden
+    else if (frameCountnow == 6) {
       wifiscanenter ();
     }//wifiscan
   }// enter = 1
   else if (enter == 2) {
     if (frameCountnow == 1) {
-      setinstore();
-    }//setin
-    else if (frameCountnow == 2) {
-      modeinstore();
-    }//modein
-    else if (frameCountnow == 3) {
-      wifichanstore();
-    }//channel
-    else if (frameCountnow == 4) {
-      hiddstore();
-    }//hidden
-    else if (frameCountnow == 5) {
 
     }//info
+    else if (frameCountnow == 2) {
+      setinstore();
+    }//setin
+    else if (frameCountnow == 3) {
+      modeinstore();
+    }//modein
+    else if (frameCountnow == 4) {
+      wifichanstore();
+    }//channel
+    else if (frameCountnow == 5) {
+      hiddstore();
+    }//hidden
   }//enter = 2
   else if (enter >= 3) {
     enter = 0;
@@ -232,7 +232,7 @@ void check_btn() {
   if (button9.isPressed() && button8.isPressed()) {
     display.displayOn();
     enter = 0;
-    frameCountnow = 5;
+    frameCountnow = 1;
     screen = 1;
     last_screen_check_time = now;
     info();
