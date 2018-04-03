@@ -35,6 +35,8 @@ void scan_wifi() {
     DisplayClear16 ();
     display.drawString(20, 0, "No Networks Found");
     display.display();
+    delay(2000);
+    wifi_list();
 #ifdef DEBUG
     Serial.println("No Networks Found");
 #endif
@@ -89,7 +91,7 @@ void wifi_list() {
     if (button7.onPressed()) {
       wifi_list_next ();
     }
-  }
+  }//menu == 1
 }//tftprint_wifilist
 
 void wifi_list_next () {

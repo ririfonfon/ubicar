@@ -87,6 +87,10 @@ void gotTouch9() {
     menu = 1;
     wifiscan();
   }//info
+  else if (frameCountnow == 7) {
+    menu = 10;
+    test();
+  }//info
   if (enter == 1) {
     display.normalDisplay();
   }
@@ -189,6 +193,9 @@ void gotTouch6() {
     else if (frameCountnow == 6) {
       wifiscanenter ();
     }//wifiscan
+    else if (frameCountnow == 7) {
+      testenter ();
+    }//checkenter
   }// enter = 1
   else if (enter == 2) {
     if (frameCountnow == 1) {

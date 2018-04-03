@@ -18,8 +18,9 @@ int is;
 uint8_t wifi_start;
 uint8_t wifi_end;
 int n;
-uint8_t ligne=0;
-uint8_t menu=0;
+uint8_t ligne = 0;
+uint8_t menu = 0;
+int mode_test = 1;
 
 #ifdef HELTEC
 #define NB_SAMPLE    100
@@ -28,6 +29,7 @@ int raw_m;
 long somme = 0;
 int raw = 0;
 int level;
+int levelold = 0;
 #endif
 
 #include "EEPROM.h"
@@ -71,7 +73,7 @@ uint8_t init_btn8 = 0;
 uint8_t init_btn7 = 0;
 uint8_t init_btn6 = 0;
 
-int frameCount = 6;
+int frameCount = 7;
 int frameCountnow = 0;
 int enter = 0;
 
@@ -191,7 +193,7 @@ void setup() {
   analogSetCycles(8);
   analogSetClockDiv(1); // 1338mS
   analogSetAttenuation(ADC_11db);
-  analogSetPinAttenuation(34,ADC_11db);
+  analogSetPinAttenuation(34, ADC_11db);
   adcAttachPin(34);
   adcStart(34);
 #endif
@@ -407,7 +409,8 @@ void loop() {
       Serial.println("getLevel();");
 #endif
       getLevel();
-      if (frameCountnow == 1) {
+      if (frameCountnow == 1 && levelold != level) {
+        levelold = level;
         info();
       }//info
       last_bat_check_time = now;
